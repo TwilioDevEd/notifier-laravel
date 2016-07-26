@@ -11,8 +11,5 @@
 |
 */
 
-use Twilio\Rest\Client;
 
-Route::get('/', function (Client $twilioClient) {
-    return view("welcome");
-});
+Route::resource('/', 'NotificationController');
