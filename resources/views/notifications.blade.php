@@ -14,17 +14,17 @@
                     <label for="" class="col-md-2 control-label">Message</label>
                     <div class="col-md-10">
                         <textarea name="message" id="" cols="30" rows="10"
-                                  class="form-control"></textarea>
+                                  class="form-control" maxlength="250" required></textarea>
                         <span class="text-primary" id="validation_message"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-md-2 control-label">Movie</label>
                     <div class="col-md-10">
-                        <select name="movie" id="" class="form-control">
-                            <option value="episode_viii">Episode VIII</option>
-                            <option value="rogue_one">Rogue One</option>
-                            <option value="han_solo_spinoff">Han Solo Spinoff</option>
+                        <select name="movie" id="" class="form-control" required>
+                            @foreach ($valid_movies as $movie_name => $movie_title)
+                                <option value="{{ $movie_name }}">{{ $movie_title }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

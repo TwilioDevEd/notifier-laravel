@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Messages\MessagesFacade;
+use App\Messages\MessagesParser;
+use App\Notifications\MoviesNotifier;
+use App\Notifications\NotificationsFacade;
+use app\Notifications\NotificationsManager;
+use App\Notifications\Subscribers\MoviesSubscriptor;
+use App\Notifications\Subscribers\SubscribersFacade;
+use App\Notifications\Subscribers\SubscribersManager;
 use Illuminate\Support\ServiceProvider;
 use Twilio\Rest\Client;
 
@@ -32,6 +40,28 @@ class TwilioProvider extends ServiceProvider
 
             return new Client($accountSid, $authToken);
         });
+
+        $subscriberFacade = new SubscribersFacade();
+
+        $this->app->instance(
+            MoviesSubscriptor::class,
+            $subscriberFacade
+        );
+        $this->app->instance(
+            SubscribersManager::class,
+            $subscriberFacade
+        );
+
+        $notifierFacade = new NotificationsFacade();
+
+        $this->app->instance(
+            MoviesNotifier::class,
+            $notifierFacade
+        );
+        $this->app->instance(
+            NotificationsManager::class,
+            $notifierFacade
+        );
     }
 
     /**
@@ -41,6 +71,6 @@ class TwilioProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [Client::class];
+        return [Client::class, MoviesSubscriptor::class];
     }
 }

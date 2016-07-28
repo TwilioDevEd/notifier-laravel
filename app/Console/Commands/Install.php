@@ -30,6 +30,7 @@ class Install extends Command
     {
         $this->info(PHP_EOL . "Setting up Notifier-Laravel..." . PHP_EOL);
 
+        @unlink(base_path(".env"));
         copy(base_path(".env.example"), base_path(".env"));
         $this->comment("Replaced enviroment variables for the project");
 
@@ -42,5 +43,4 @@ class Install extends Command
         $this->call("migrate");
         $this->call("db:seed");
     }
-
 }

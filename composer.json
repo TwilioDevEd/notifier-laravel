@@ -2,15 +2,20 @@
   "name": "laravel/laravel",
   "description": "The Laravel Framework.",
   "keywords": [
+    "twilio",
+    "notifier",
+    "twilio rest api",
     "framework",
-    "laravel"
+    "laravel",
+    "tutorial"
   ],
   "license": "MIT",
   "type": "project",
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": "5.2.*",
-    "twilio/sdk": "5.0.0-RC8"
+    "twilio/sdk": "5.0.0-RC8",
+    "squizlabs/php_codesniffer": "2.*"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
@@ -25,7 +30,10 @@
     ],
     "psr-4": {
       "App\\": "app/"
-    }
+    },
+    "files": [
+      "app/Notifications/helpers.php"
+    ]
   },
   "autoload-dev": {
     "classmap": [

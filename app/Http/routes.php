@@ -11,5 +11,6 @@
 |
 */
 
+Route::resource('/', 'NotificationController', ['as' => 'notification']);
 
-Route::resource('/', 'NotificationController');
+Route::controller('message', 'SubscriberController', ['as' => 'message']);

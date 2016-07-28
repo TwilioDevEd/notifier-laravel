@@ -2,6 +2,22 @@
 
 return [
 
+
+    /**
+     * Valid commands the user may request
+     */
+    'valid_sms_commands' => ["help", "unsub"],
+
+
+    /**
+     * Valid movies to request
+     */
+    'valid_movies' => [
+        "han_solo_spinoff" => "Han Solo Spinoff",
+        "rogue_one" => "Rogue One",
+        "episode_viii" => "Episode VIII"
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
