@@ -30,7 +30,7 @@ class SubscribersFacade implements MoviesSubscriptor, SubscribersManager
 
         $valid_movies = config("app.valid_movies");
         foreach ($valid_movies as $movie) {
-            $response .= $movie . PHP_EOL;
+            $response .=  PHP_EOL . $movie;
         }
 
         return $response;

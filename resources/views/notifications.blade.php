@@ -10,6 +10,7 @@
     <div class="row">
         <div class="col-md-12">
             <form action="/notifications" class="form-horizontal" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="" class="col-md-2 control-label">Message</label>
                     <div class="col-md-10">

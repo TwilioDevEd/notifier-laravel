@@ -17,6 +17,8 @@ class SubscriberController extends Controller
 
     public function postIncoming(Request $request)
     {
+        $this->middleware('auth');
+
         $message = $request->input("Body");
         $phoneNumber = $request->input("From");
 
