@@ -30,12 +30,12 @@
     </div>
 </div>
 <div class="container">
-    @foreach ($flash as $data)
+    @if(Session::has('message'))
         <div class="alert alert-dismissible alert-success">
             <button class="close" type='button' data-dismiss='alert'>x</button>
-            <span>{{ $data.message }}</span>
+            <span>{{ Session::get('message') }}</span>
         </div>
-    @endforeach
+    @endif
 
     @yield('content')
 

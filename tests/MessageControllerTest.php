@@ -1,11 +1,13 @@
 <?php
 
-use App\Notifications\Subscribers\MoviesSubscriptor;
-use App\Notifications\Subscribers\SubscribersFacade;
+use App\Notifications\Subscribers\MoviesNotificationsSubscriptor;
+use App\Notifications\Subscribers\MessageHandler;
 
-class SubscriberControllerTest extends TestCase
+class MessageControllerTest extends TestCase
 {
     /**
+     * Endpoint for parsing incoming user sms
+     *
      * @param $message User request message
      * @param $expectedCmd Command expected to be excecuted
      *
@@ -19,11 +21,14 @@ class SubscriberControllerTest extends TestCase
             "From" => "+12345678990"
         ];
 
-        $moviesSubscriberMock = Mockery::mock(SubscribersFacade::class)->makePartial();
-        $moviesSubscriberMock->shouldReceive($expectedCmd)->once()->andReturn(true);
+        $moviesSubscriberMock = Mockery::mock(MessageHandler::class)
+            ->makePartial();
+        $moviesSubscriberMock->shouldReceive($expectedCmd)
+            ->once()
+            ->andReturn(true);
 
         $this->app->instance(
-            MoviesSubscriptor::class,
+            MoviesNotificationsSubscriptor::class,
             $moviesSubscriberMock
         );
 
@@ -40,6 +45,7 @@ class SubscriberControllerTest extends TestCase
 
     /**
      * Provides all use cases
+     *
      * @return array
      */
     function commandsDataProvider()

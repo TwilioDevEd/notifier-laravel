@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use app\Notifications\NotificationsManager;
+use App\Notifications\NotificationsManager;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class NotificationController extends Controller
 {
@@ -38,16 +37,15 @@ class NotificationController extends Controller
         $message = $request->input("message");
         $movie = $request->input("movie");
 
-        $viewParams = $this->_getViewParams();
+        $msg = $this->_getViewParams();
 
         if ($this->_notificationsManager->createNotification($movie, $message)) {
-            $viewParams["flash"] = "Well done! The force is strong with you.";
+            $msg = "Well done! The force is strong with you.";
         } else {
-            throw new ValidationException(
-                "Wrong input! Please check your form data"
-            );
+            $msg = "The notification could not be sent.";
         }
-        return redirect()->route("notification..index");
+
+        return redirect()->route("notification..index")->with("message", $msg);
     }
 
     private function _getViewParams()

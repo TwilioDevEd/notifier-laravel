@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Messages\MessagesFacade;
-use App\Messages\MessagesParser;
 use App\Notifications\MoviesNotifier;
-use App\Notifications\NotificationsFacade;
-use app\Notifications\NotificationsManager;
-use App\Notifications\Subscribers\MoviesSubscriptor;
-use App\Notifications\Subscribers\SubscribersFacade;
+use App\Notifications\NotificationsHandler;
+use App\Notifications\NotificationsManager;
+use App\Notifications\Subscribers\MessageHandler;
+use App\Notifications\Subscribers\MoviesNotificationsSubscriptor;
+use App\Notifications\Subscribers\SubscribersHandler;
 use App\Notifications\Subscribers\SubscribersManager;
 use Illuminate\Support\ServiceProvider;
 use Twilio\Rest\Client;
+use Twilio\Rest\Notifications\V1\ServiceContext as NotificationService;
 
 class TwilioProvider extends ServiceProvider
 {
@@ -34,34 +34,42 @@ class TwilioProvider extends ServiceProvider
     {
         $this->app->singleton(Client::class, function ($app) {
             $accountSid = config('services.twilio')['accountSid']
-            or die("TWILIO_ACCOUNT_SID is not set in the environment");
+            or die("{Client::ENV_ACCOUNT_SID} is not set in the environment");
             $authToken = config('services.twilio')['authToken']
-            or die("TWILIO_AUTH_TOKEN is not set in the environment");
+            or die("{Client::ENV_AUTH_TOKEN} is not set in the environment");
 
             return new Client($accountSid, $authToken);
         });
 
-        $subscriberFacade = new SubscribersFacade();
+        $this->app->singleton(NotificationService::class, function ($app) {
+            $twilioClient = $app[Client::class];
+            $twilioApiConfig = config("services.twilio");
+            $notificationServSid = $twilioApiConfig["notificationServiceSid"]
+            or die(
+            "TWILIO_NOTIFICATION_SERVICE_SID is not set in the environment"
+            );
 
-        $this->app->instance(
-            MoviesSubscriptor::class,
-            $subscriberFacade
-        );
-        $this->app->instance(
-            SubscribersManager::class,
-            $subscriberFacade
-        );
+            return $twilioClient->notifications->services()
+                ->getContext($notificationServSid);
+        });
 
-        $notifierFacade = new NotificationsFacade();
+        $this->app->singleton(MoviesNotificationsSubscriptor::class, function ($app) {
+            $subscriberManager = $app[SubscribersManager::class];
 
-        $this->app->instance(
-            MoviesNotifier::class,
-            $notifierFacade
-        );
-        $this->app->instance(
-            NotificationsManager::class,
-            $notifierFacade
-        );
+            return new MessageHandler($subscriberManager);
+        });
+
+        $this->app->singleton(SubscribersManager::class, function ($app) {
+            $notificationService = $app[NotificationService::class];
+
+            return new SubscribersHandler($notificationService);
+        });
+
+        $this->app->singleton(NotificationsManager::class, function ($app) {
+            $notificationService = $app[NotificationService::class];
+
+            return new NotificationsHandler($notificationService);
+        });
     }
 
     /**
@@ -71,6 +79,6 @@ class TwilioProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [Client::class, MoviesSubscriptor::class];
+        return [Client::class, MoviesNotificationsSubscriptor::class];
     }
 }

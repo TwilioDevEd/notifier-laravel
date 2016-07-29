@@ -25,7 +25,17 @@ This project is build using [Laravel](https://laravel.com).
    ```bash
    $ composer install
    ```
+   
+1. Setup the project environment executing:
 
+   ```bash
+   $ php artisan setup
+   ```     
+   
+   This also
+   * Creates your `.env` file for you to add your private credentials.
+   * Generates an `APP_KEY`.
+   
    You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
    [Twilio Account Settings](https://www.twilio.com/user/account/settings).
    You will also need a `TWILIO_NUMBER`, which you may find [here](https://www.twilio.com/user/account/phone-numbers/incoming).
@@ -33,13 +43,6 @@ This project is build using [Laravel](https://laravel.com).
    You can find your `TWILIO_NOTIFICATION_SERVICE_SID` in you console under
    [services](https://www.twilio.com/console/notify/services).
    
-   This also will:
-   * Create your `.env` file for you to add your private credentials.
-   * Generate an `APP_KEY`.
-   * Create your [SQLite](https://www.sqlite.org/) database file.
-   * Run the migrations.
-   * Seed the database.
-
 1. Make sure the tests succeed.
 
    ```bash

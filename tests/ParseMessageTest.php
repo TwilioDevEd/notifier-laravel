@@ -6,7 +6,7 @@ class ParseMessageTest extends TestCase
     public function testParseHelp()
     {
         //When
-        $command = parse_message("help me");
+        $command = parseMessage("help me");
 
         //Then
         $this->assertEquals(
@@ -18,7 +18,7 @@ class ParseMessageTest extends TestCase
     public function testParseSuscribe()
     {
         //When
-        $command = parse_message("rogue_one");
+        $command = parseMessage("rogue_one");
 
         //Then
         $this->assertEquals(
@@ -32,7 +32,7 @@ class ParseMessageTest extends TestCase
 
 
         //When
-        $command = parse_message("Rogue One");
+        $command = parseMessage("Rogue One");
 
         //Then
         $this->assertEquals(
@@ -46,7 +46,7 @@ class ParseMessageTest extends TestCase
 
 
         //When
-        $command = parse_message("rogue_1");
+        $command = parseMessage("rogue_1");
 
         //Then
         $this->assertEquals(
@@ -58,7 +58,7 @@ class ParseMessageTest extends TestCase
     public function testParseUnsub()
     {
         //When
-        $command = parse_message("unsub Rogue One");
+        $command = parseMessage("unsub Rogue One");
 
         //Then
         $this->assertEquals(
@@ -71,7 +71,7 @@ class ParseMessageTest extends TestCase
         );
 
         //When
-        $command = parse_message("unsub   Rogue One");
+        $command = parseMessage("unsub   Rogue One");
 
         //Then
         $this->assertEquals(
@@ -86,14 +86,18 @@ class ParseMessageTest extends TestCase
 
     public function testConvertToNameFormat()
     {
-        $name = str_name_format("rogue_one");
+        $name = strNameFormat("rogue_one");
 
-        $this->assertEquals("rogue_one", $name,
-            "The movie name format is not correct");
+        $this->assertEquals(
+            "rogue_one", $name,
+            "The movie name format is not correct"
+        );
 
-        $name = str_name_format("Rogue One");
+        $name = strNameFormat("Rogue One");
 
-        $this->assertEquals("rogue_one", $name,
-            "The movie name format is not correct with verbose text");
+        $this->assertEquals(
+            "rogue_one", $name,
+            "The movie name format is not correct with verbose text"
+        );
     }
 }

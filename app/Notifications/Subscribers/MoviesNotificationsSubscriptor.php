@@ -3,7 +3,7 @@
 namespace App\Notifications\Subscribers;
 
 
-interface MoviesSubscriptor
+interface MoviesNotificationsSubscriptor
 {
 
     function help();

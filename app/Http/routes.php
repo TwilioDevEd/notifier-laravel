@@ -10,10 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['middleware' => ['web']], function () {
 
-    Route::resource('/', 'NotificationController', ['as' => 'notification']);
+Route::resource('/', 'NotificationController', ['as' => 'notification']);
 
-    Route::controller('message', 'SubscriberController', ['as' => 'subscriber']);
-
-});
+Route::controller('message', 'MessageController', ['as' => 'message']);

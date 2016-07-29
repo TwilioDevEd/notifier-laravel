@@ -1,5 +1,5 @@
 <?php
-namespace app\Notifications;
+namespace App\Notifications;
 
 
 interface NotificationsManager
