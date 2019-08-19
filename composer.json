@@ -13,7 +13,7 @@
   "type": "project",
   "require": {
     "php": ">=5.5.9",
-    "laravel/framework": "5.2.*",
+    "laravel/framework": "5.4.*",
     "twilio/sdk": "5.0.0-RC8",
     "squizlabs/php_codesniffer": "2.*"
   },
