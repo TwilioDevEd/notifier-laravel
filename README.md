@@ -16,20 +16,20 @@ This project is build using [Laravel](https://laravel.com).
 1. First clone this repository and `cd` into it.
 
    ```bash
-   $ git clone git@github.com:TwilioDevEd/notifier-laravel.git
-   $ cd notifier-laravel
+   git clone git@github.com:TwilioDevEd/notifier-laravel.git
+   cd notifier-laravel
    ```
 
 1. Install the dependencies with [Composer](https://getcomposer.org/).
 
    ```bash
-   $ composer install
+   composer install
    ```
    
 1. Setup the project environment executing:
 
    ```bash
-   $ php artisan setup
+   php artisan setup
    ```     
    
    This also
@@ -46,13 +46,13 @@ This project is build using [Laravel](https://laravel.com).
 1. Make sure the tests succeed.
 
    ```bash
-   $ ./vendor/bin/phpunit
+   ./vendor/bin/phpunit
    ```
 
 1. Start the server.
 
    ```bash
-   $ php artisan serve
+   php artisan serve
    ```
 
 1. Check it out at [http://localhost:8000](http://localhost:8000).
